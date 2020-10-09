@@ -1,13 +1,11 @@
-import React from "react";
+import React, { useEffect, useState, useReducer } from "react";
 import ReactDOM from "react-dom";
 import * as serviceWorker from "./serviceWorker";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
-import TextField from "@material-ui/core/TextField";
-import AddIcon from "@material-ui/icons/Add";
-import { checkCity } from "./processapi";
-
+import citiesReducer from "./reducers/cities";
 import { makeStyles } from "@material-ui/core/styles";
+import CityList from "./components/CityList";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -24,20 +22,13 @@ const useStyles = makeStyles((theme) => ({
 
 const App = () => {
   const classes = useStyles();
+  const [cityNotFound, setCityNotFound] = useState(false);
+  const [cities, dispatch] = useReducer(citiesReducer, []);
 
   return (
     <Grid container className={classes.root} spacing={2}>
       <Grid item xs={4} justify="center">
-        <Paper className={classes.paper}>
-          <form noValidate autoComplete="off">
-            <TextField id="standard-basic" label="Standard" />
-            <AddIcon
-              onClick={() => {
-                checkCity("new delhi");
-              }}
-            ></AddIcon>
-          </form>
-        </Paper>
+        <CityList></CityList>
       </Grid>
       <Grid item xs={8}>
         <Paper className={classes.paper}> this is an app</Paper>
