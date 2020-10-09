@@ -27,10 +27,6 @@ const App = () => {
   const [cityNotFound, setCityNotFound] = useState(false);
   const [cities, dispatch] = useReducer(citiesReducer, []);
 
-  useEffect(() => {
-    console.log("cities", cities);
-  });
-
   return (
     <CitiesContext.Provider value={{ cities, dispatch }}>
       <Grid container className={classes.root} spacing={2}>

@@ -13,7 +13,7 @@ const CityList = () => {
         {cities.map((city) => {
           return (
             <ListItem key={city.name}>
-              <ListItemText primary={city.name} />
+              <ListItemText key={city.name} primary={city.name} />
             </ListItem>
           );
         })}
