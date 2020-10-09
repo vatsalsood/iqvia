@@ -14,7 +14,6 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   paper: {
-    height: 140,
     textAlign: "center",
   },
   control: {
@@ -24,15 +23,16 @@ const useStyles = makeStyles((theme) => ({
 
 const App = () => {
   const classes = useStyles();
-  const [cityNotFound, setCityNotFound] = useState(false);
   const [cities, dispatch] = useReducer(citiesReducer, []);
 
   return (
     <CitiesContext.Provider value={{ cities, dispatch }}>
       <Grid container className={classes.root} spacing={2}>
         <Grid item xs={4} justify="center">
-          <CityAdd></CityAdd>
-          <CityList></CityList>
+          <Paper className={classes.paper}>
+            <CityAdd></CityAdd>
+            <CityList></CityList>
+          </Paper>
         </Grid>
         <Grid item xs={8}>
           <Paper className={classes.paper}> this is an app</Paper>

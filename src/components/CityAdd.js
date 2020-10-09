@@ -34,8 +34,7 @@ const CityAdd = () => {
     if (isValidCity.cod == 404) {
       setCityNotFound(true);
     } else {
-      city = isValidCity.name;
-      dispatch({ type: "ADD_CITY", city });
+      dispatch({ type: "ADD_CITY", isValidCity });
     }
   }
 
@@ -51,7 +50,7 @@ const CityAdd = () => {
   }
 
   return (
-    <Paper className={classes.paper}>
+    <div>
       <form noValidate autoComplete="off">
         <TextField
           id="standard-basic"
@@ -68,10 +67,10 @@ const CityAdd = () => {
         onClose={handleClose}
       >
         <Alert onClose={handleClose} severity="error">
-          This is a error message!
+          Please enter a valid city!
         </Alert>
       </Snackbar>
-    </Paper>
+    </div>
   );
 };
 export default CityAdd;
