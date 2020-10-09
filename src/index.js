@@ -3,15 +3,15 @@ import ReactDOM from "react-dom";
 import * as serviceWorker from "./serviceWorker";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
-import TextField from '@material-ui/core/TextField';
-
+import TextField from "@material-ui/core/TextField";
+import AddIcon from "@material-ui/icons/Add";
+import { checkCity } from "./processapi";
 
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    
   },
   paper: {
     height: 140,
@@ -31,6 +31,11 @@ const App = () => {
         <Paper className={classes.paper}>
           <form noValidate autoComplete="off">
             <TextField id="standard-basic" label="Standard" />
+            <AddIcon
+              onClick={() => {
+                checkCity("new delhi");
+              }}
+            ></AddIcon>
           </form>
         </Paper>
       </Grid>
