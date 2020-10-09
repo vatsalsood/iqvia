@@ -3,8 +3,10 @@ let cities = [];
 const citiesReducer = (state, action) => {
   switch (action.type) {
     case "ADD_CITY":
-      cities.push(action.city);
-      return cities;
+      console.log("state", state);
+      return [...state, { name: action.city }];
+    default:
+      return state;
   }
 };
 

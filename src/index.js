@@ -5,7 +5,9 @@ import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import citiesReducer from "./reducers/cities";
 import { makeStyles } from "@material-ui/core/styles";
+import CityAdd from "./components/CityAdd";
 import CityList from "./components/CityList";
+import CitiesContext from "./context/cities-context";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -25,15 +27,22 @@ const App = () => {
   const [cityNotFound, setCityNotFound] = useState(false);
   const [cities, dispatch] = useReducer(citiesReducer, []);
 
+  useEffect(() => {
+    console.log("cities", cities);
+  });
+
   return (
-    <Grid container className={classes.root} spacing={2}>
-      <Grid item xs={4} justify="center">
-        <CityList></CityList>
+    <CitiesContext.Provider value={{ cities, dispatch }}>
+      <Grid container className={classes.root} spacing={2}>
+        <Grid item xs={4} justify="center">
+          <CityAdd></CityAdd>
+          <CityList></CityList>
+        </Grid>
+        <Grid item xs={8}>
+          <Paper className={classes.paper}> this is an app</Paper>
+        </Grid>
       </Grid>
-      <Grid item xs={8}>
-        <Paper className={classes.paper}> this is an app</Paper>
-      </Grid>
-    </Grid>
+    </CitiesContext.Provider>
   );
 };
 
