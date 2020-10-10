@@ -20,6 +20,8 @@ const citiesReducer = (state, action) => {
         return s;
       });
       return newState;
+    case "REMOVE_CITY":
+      return state.filter((s) => s.name !== action.name);
     default:
       return state;
   }

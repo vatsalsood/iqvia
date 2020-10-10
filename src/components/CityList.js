@@ -35,9 +35,9 @@ const CityList = () => {
     dispatch({ type: "UPDATE_CITY", isValidCity });
   }
 
-  useEffect(() => {
-    console.log("cities", cities);
-  });
+//   useEffect(() => {
+//     console.log("cities", cities);
+//   });
 
   return (
     <div>
@@ -72,7 +72,13 @@ const CityList = () => {
                 >
                   <RefreshIcon />
                 </IconButton>
-                <IconButton edge="end" aria-label="refresh">
+                <IconButton
+                  edge="end"
+                  aria-label="refresh"
+                  onClick={() => {
+                    dispatch({ type: "REMOVE_CITY", name: city.name });
+                  }}
+                >
                   <CloseIcon />
                 </IconButton>
               </ListItemSecondaryAction>
