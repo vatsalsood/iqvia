@@ -11,14 +11,14 @@ export async function checkCity(cityName) {
   try {
     const response = await fetch(proxyUrl + apiUrl);
     const data = await response.json();
-    console.log("data", data);
     city.name = data.name;
     city.cod = data.cod;
     city.temperature = data.main.temp;
     city.description = data.weather[0].description;
   } catch (error) {
     city.name = "error";
-    console.log("error", error);
+    // console.log("error", error);
   }
+  console.log("processApicity", city);
   return city;
 }

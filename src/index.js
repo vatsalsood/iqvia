@@ -1,3 +1,8 @@
+// Check for duplicates in city list
+// Disable add button when field empty
+// Prevent adding special characters in search field
+// Clear search field after adding city
+
 import React, { useEffect, useState, useReducer } from "react";
 import ReactDOM from "react-dom";
 import * as serviceWorker from "./serviceWorker";

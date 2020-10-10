@@ -11,6 +11,15 @@ const citiesReducer = (state, action) => {
           description: action.isValidCity.description,
         },
       ];
+    case "UPDATE_CITY":
+      let newState = state.map((s) => {
+        if (s.name === action.isValidCity.name) {
+          s.temperature = action.isValidCity.temperature;
+          s.description = action.isValidCity.description;
+        }
+        return s;
+      });
+      return newState;
     default:
       return state;
   }

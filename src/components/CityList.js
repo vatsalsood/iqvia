@@ -6,6 +6,13 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import Typography from "@material-ui/core/Typography";
+import RefreshIcon from "@material-ui/icons/Refresh";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
+import IconButton from "@material-ui/core/IconButton";
+import CloseIcon from "@material-ui/icons/Close";
+
+import { checkCity } from "../processapi";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -19,8 +26,18 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const CityList = () => {
-  const { cities } = useContext(CitiesContext);
+  const { cities, dispatch } = useContext(CitiesContext);
+
   const classes = useStyles();
+
+  async function refreshWeather(cityName) {
+    let isValidCity = await checkCity(cityName);
+    dispatch({ type: "UPDATE_CITY", isValidCity });
+  }
+
+  useEffect(() => {
+    console.log("cities", cities);
+  });
 
   return (
     <div>
@@ -30,7 +47,7 @@ const CityList = () => {
             <ListItem key={city.name}>
               <ListItemText
                 key={city.name}
-                primary={city.name }
+                primary={city.name}
                 secondary={
                   <React.Fragment>
                     <Typography
@@ -39,12 +56,26 @@ const CityList = () => {
                       className={classes.inline}
                       color="textPrimary"
                     >
-                      {city.temperature}
+                      {city.temperature} degrees
                     </Typography>
-                      -- {city.description}
+                    -- {city.description}
                   </React.Fragment>
                 }
               />
+              <ListItemSecondaryAction>
+                <IconButton
+                  edge="end"
+                  aria-label="refresh"
+                  onClick={() => {
+                    refreshWeather(city.name);
+                  }}
+                >
+                  <RefreshIcon />
+                </IconButton>
+                <IconButton edge="end" aria-label="refresh">
+                  <CloseIcon />
+                </IconButton>
+              </ListItemSecondaryAction>
             </ListItem>
           );
         })}

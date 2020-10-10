@@ -26,11 +26,8 @@ const CityAdd = () => {
   const [cityNotFound, setCityNotFound] = useState(false);
   const { dispatch } = useContext(CitiesContext);
 
-  const classes = useStyles();
-
   async function addCity() {
     let isValidCity = await checkCity(cityName);
-    let city = "";
     if (isValidCity.cod == 404) {
       setCityNotFound(true);
     } else {
