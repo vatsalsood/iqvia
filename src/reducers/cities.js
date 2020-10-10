@@ -22,6 +22,8 @@ const citiesReducer = (state, action) => {
       return newState;
     case "REMOVE_CITY":
       return state.filter((s) => s.name !== action.name);
+    case "CLEAR_CITIES":
+      return [];
     default:
       return state;
   }

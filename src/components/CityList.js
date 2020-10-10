@@ -10,6 +10,7 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
+import Button from "@material-ui/core/Button";
 
 import { checkCity } from "../processapi";
 
@@ -26,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
 
 const CityList = (props) => {
   const { cities, dispatch } = useContext(CitiesContext);
-
+  const [listEmpty, setListEmpty] = useState(true);
   const classes = useStyles();
 
   async function refreshWeather(cityName) {
@@ -90,6 +91,17 @@ const CityList = (props) => {
             </ListItem>
           );
         })}
+        <ListItem alignItems="right">
+          <Button
+            variant="contained"
+            disabled={listEmpty}
+            onClick={() => {
+              dispatch({ type: "CLEAR_CITIES" });
+            }}
+          >
+            Clear
+          </Button>
+        </ListItem>
       </List>
     </div>
   );

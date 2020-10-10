@@ -11,7 +11,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import IconButton from "@material-ui/core/IconButton";
 
 const useStyles = makeStyles((theme) => ({
-
   textField: {
     width: "70%",
   },
@@ -51,7 +50,7 @@ const CityAdd = () => {
         <TextField
           id="standard-basic"
           label="Enter City"
-           className={classes.textField}
+          className={classes.textField}
           onChange={(e) => {
             e.target.value === "" ? setIsEmpty(true) : setIsEmpty(false);
             setCityName(e.target.value);
@@ -61,6 +60,7 @@ const CityAdd = () => {
           edge="end"
           aria-label="refresh"
           disabled={isEmpty}
+          size="medium"
           onClick={() => {
             addCity();
           }}
