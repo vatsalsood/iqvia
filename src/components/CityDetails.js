@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 import { mdiCloud } from "@mdi/js";
+import { mdiWeatherRainy } from "@mdi/js";
+import { mdiWeatherSunny } from "@mdi/js";
 import Icon from "@mdi/react";
 import { getCityForecast } from "../processapi";
 import List from "@material-ui/core/List";
@@ -32,7 +34,7 @@ const CityDetails = (props) => {
   const [weatherList, setWeatherList] = useState([]);
 
   const formatTemp = (list) => {
-    var days = [
+    let days = [
       "Sunday",
       "Monday",
       "Tuesday",
@@ -42,10 +44,18 @@ const CityDetails = (props) => {
       "Saturday",
     ];
 
+    let icons = {
+      Clouds: mdiCloud,
+      Rain: mdiWeatherRainy,
+      Clear: mdiWeatherSunny,
+    };
+
     list.forEach((element) => {
       let dt = element.dt;
+      let iconData = element.weather[0].main;
       element.dt = new Date(dt * 1000).getDate();
       element.day = days[new Date(dt * 1000).getDay()].substring(0, 3);
+      element.icon = icons[iconData];
     });
     return list;
   };
@@ -59,7 +69,6 @@ const CityDetails = (props) => {
 
   useEffect(() => {
     if (props.cityName !== "") {
-      console.log("cityname", props.cityName);
       getWeatherData(props.cityName);
     }
   }, [props]);
@@ -68,17 +77,51 @@ const CityDetails = (props) => {
     <Grid container className={classes.root} spacing={2}>
       <Grid item xs={12}>
         <Grid container>
-          <Grid item xs={4}>
-            <Icon path={mdiCloud} title="Clouds" size={3} />
+          {" "}
+          <Grid item xs={8}>
+            <Typography align="left" variant="h4" gutterBottom gutterLeft>
+              {props.cityName !== "" ? props.cityName : "Please choose a city"}
+            </Typography>
           </Grid>
-          <Grid item xs={8}></Grid>
+          <Grid item xs={4}></Grid>
+        </Grid>
+      </Grid>
+      <Grid item xs={12}>
+        <Grid container>
+          <Grid item xs={4}>
+            {weatherList.length > 0 ? (
+              <Icon path={weatherList[0].icon} title="Clouds" size={3} />
+            ) : (
+              ""
+            )}
+          </Grid>
+          <Grid item xs={8}>
+            {weatherList.length > 0 ? (
+              <Typography variant="div">
+                <Typography align="left" variant="h6" gutterBottom>
+                  {weatherList[0].temp.day}
+                </Typography>
+                <Typography align="left" variant="h6" gutterBottom>
+                  {weatherList[0].weather[0].description}
+                </Typography>
+                <Typography align="left" variant="h6" gutterBottom>
+                  Wind: {weatherList[0].speed}
+                </Typography>
+                <Typography align="left" variant="h6" gutterBottom>
+                  Pressure: {weatherList[0].pressure}
+                </Typography>
+              </Typography>
+            ) : (
+              ""
+            )}
+          </Grid>
         </Grid>
       </Grid>
       <Grid item xs={12}>
         <List className={classes.flexContainer}>
           {weatherList.map((item) => {
             return (
-              <ListItem>
+              <ListItem alignItems="center">
                 <ListItemText
                   primary={
                     <React.Fragment>
@@ -92,16 +135,10 @@ const CityDetails = (props) => {
                   }
                   secondary={
                     <React.Fragment>
-                      <Typography
-                        component="span"
-                        variant="body2"
-                        className={classes.inline}
-                        color="textPrimary"
-                        align="center"
-                      >
-                        Ali Connors
+                      <Typography align="center" variant="h6" gutterBottom>
+                        <Icon path={item.icon} size={1} />
+                        {Math.round(item.temp.day)}
                       </Typography>
-                      {" — I'll be in your neighborhood doing errands this…"}
                     </React.Fragment>
                   }
                 />
