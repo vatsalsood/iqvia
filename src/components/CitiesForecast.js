@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import { makeStyles } from "@material-ui/core/styles";
@@ -20,9 +20,10 @@ const useStyles = makeStyles((theme) => ({
 
 const CitiesForecast = () => {
   const classes = useStyles();
+  const [cityName, setCityName] = useState("");
 
   const displayCityDetails = (cityName) => {
-    console.log(cityName);
+    setCityName(cityName);
   };
 
   return (
@@ -35,7 +36,7 @@ const CitiesForecast = () => {
       </Grid>
       <Grid item xs={8}>
         <Paper className={classes.paper}>
-          <CityDetails></CityDetails>
+          <CityDetails cityName={cityName}></CityDetails>
         </Paper>
       </Grid>
     </Grid>

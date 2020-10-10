@@ -1,6 +1,6 @@
+const proxyUrl = "https://cors-anywhere.herokuapp.com/";
+const appId = "c51223c219d6aec8cb8c5210449bd859";
 export async function checkCity(cityName) {
-  const proxyUrl = "https://cors-anywhere.herokuapp.com/";
-  const appId = "c51223c219d6aec8cb8c5210449bd859";
   const apiUrl =
     "api.openweathermap.org/data/2.5/weather?q=" +
     cityName +
@@ -21,4 +21,23 @@ export async function checkCity(cityName) {
   }
   console.log("processApicity", city);
   return city;
+}
+
+export async function getCityForecast(cityName) {
+  const apiUrl =
+    "api.openweathermap.org/data/2.5/forecast/daily?q=" +
+    cityName +
+    "&cnt=7&appid=" +
+    appId +
+    "&units=metric";
+  let data = {};
+  try {
+    const response = await fetch(proxyUrl + apiUrl);
+    data = await response.json();
+    console.log("data", data);
+  } catch (error) {
+    // city.name = "error";
+    console.log("error", error);
+  }
+  return data;
 }

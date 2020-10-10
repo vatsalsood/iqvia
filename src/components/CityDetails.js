@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 import { mdiCloud } from "@mdi/js";
 import Icon from "@mdi/react";
+import { getCityForecast } from "../processapi";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -17,8 +18,29 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const CityDetails = () => {
+const CityDetails = (props) => {
   const classes = useStyles();
+  const [weatherList, setWeatherList] = useState([]);
+
+  const formatTemp = (list) => {
+    list.forEach((element) => {
+      element.dt = new Date(element.dt * 1000).getDate();
+    });
+    return list;
+  };
+
+  async function getWeatherData() {
+    let weatherData = await getCityForecast(props.cityName);
+    console.log(weatherData.list);
+    
+    setWeatherList(formatTemp(weatherData.list));
+  }
+
+  useEffect(() => {
+    if (props.cityName !== "") {
+      getWeatherData(props.cityName);
+    }
+  }, [props]);
 
   return (
     <Grid container className={classes.root} spacing={2}>
