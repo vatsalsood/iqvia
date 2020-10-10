@@ -34,10 +34,11 @@ export async function getCityForecast(cityName) {
   try {
     const response = await fetch(proxyUrl + apiUrl);
     data = await response.json();
-    console.log("data", data);
   } catch (error) {
     // city.name = "error";
     console.log("error", error);
   }
+  console.log("data", data);
+
   return data;
 }
