@@ -2,28 +2,27 @@ import React, { useEffect, useState, useContext } from "react";
 import Paper from "@material-ui/core/Paper";
 import TextField from "@material-ui/core/TextField";
 import AddIcon from "@material-ui/icons/Add";
+import AddCircleIcon from "@material-ui/icons/AddCircle";
 import CitiesContext from "../context/cities-context";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
 import { checkCity } from "../processapi";
 import { makeStyles } from "@material-ui/core/styles";
+import IconButton from "@material-ui/core/IconButton";
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-  paper: {
-    height: 140,
-    textAlign: "center",
-  },
-  control: {
-    padding: theme.spacing(2),
+
+  textField: {
+    width: "70%",
   },
 }));
 
 const CityAdd = () => {
   const [cityName, setCityName] = useState("");
   const [cityNotFound, setCityNotFound] = useState(false);
+  const [isEmpty, setIsEmpty] = useState(true);
+  const classes = useStyles();
+
   const { dispatch } = useContext(CitiesContext);
 
   async function addCity() {
@@ -51,12 +50,24 @@ const CityAdd = () => {
       <form noValidate autoComplete="off">
         <TextField
           id="standard-basic"
-          label="Standard"
+          label="Enter City"
+           className={classes.textField}
           onChange={(e) => {
+            e.target.value === "" ? setIsEmpty(true) : setIsEmpty(false);
             setCityName(e.target.value);
           }}
         />
-        <AddIcon onClick={addCity}></AddIcon>
+        <IconButton
+          edge="end"
+          aria-label="refresh"
+          disabled={isEmpty}
+          onClick={() => {
+            addCity();
+          }}
+          color="primary"
+        >
+          <AddCircleIcon></AddCircleIcon>
+        </IconButton>
       </form>
       <Snackbar
         open={cityNotFound}

@@ -10,6 +10,8 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import Typography from "@material-ui/core/Typography";
+import RefreshIcon from "@material-ui/icons/Refresh";
+import IconButton from "@material-ui/core/IconButton";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -32,6 +34,12 @@ const useStyles = makeStyles((theme) => ({
 const CityDetails = (props) => {
   const classes = useStyles();
   const [weatherList, setWeatherList] = useState([]);
+
+  useEffect(() => {
+    if (props.cityName !== "") {
+      getWeatherData(props.cityName);
+    }
+  }, [props]);
 
   const formatTemp = (list) => {
     let days = [
@@ -67,23 +75,26 @@ const CityDetails = (props) => {
     setWeatherList(formatTemp(weatherData.list));
   }
 
-  useEffect(() => {
-    if (props.cityName !== "") {
-      getWeatherData(props.cityName);
-    }
-  }, [props]);
-
   return (
     <Grid container className={classes.root} spacing={2}>
       <Grid item xs={12}>
         <Grid container>
-          {" "}
           <Grid item xs={8}>
             <Typography align="left" variant="h4" gutterBottom gutterLeft>
               {props.cityName !== "" ? props.cityName : "Please choose a city"}
             </Typography>
           </Grid>
-          <Grid item xs={4}></Grid>
+          <Grid item xs={4} alignItems="right">
+            <IconButton
+              edge="end"
+              aria-label="refresh"
+              onClick={() => {
+                getWeatherData();
+              }}
+            >
+              <RefreshIcon />
+            </IconButton>
+          </Grid>
         </Grid>
       </Grid>
       <Grid item xs={12}>
@@ -99,7 +110,7 @@ const CityDetails = (props) => {
             {weatherList.length > 0 ? (
               <Typography variant="div">
                 <Typography align="left" variant="h6" gutterBottom>
-                  {weatherList[0].temp.day}
+                  {Math.round(weatherList[0].temp.day)}
                 </Typography>
                 <Typography align="left" variant="h6" gutterBottom>
                   {weatherList[0].weather[0].description}
@@ -137,6 +148,8 @@ const CityDetails = (props) => {
                     <React.Fragment>
                       <Typography align="center" variant="h6" gutterBottom>
                         <Icon path={item.icon} size={1} />
+                      </Typography>
+                      <Typography align="center" variant="h6" gutterBottom>
                         {Math.round(item.temp.day)}
                       </Typography>
                     </React.Fragment>
