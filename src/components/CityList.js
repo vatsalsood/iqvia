@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const CityList = () => {
+const CityList = (props) => {
   const { cities, dispatch } = useContext(CitiesContext);
 
   const classes = useStyles();
@@ -35,16 +35,22 @@ const CityList = () => {
     dispatch({ type: "UPDATE_CITY", isValidCity });
   }
 
-//   useEffect(() => {
-//     console.log("cities", cities);
-//   });
+  //   useEffect(() => {
+  //     console.log("cities", cities);
+  //   });
 
   return (
     <div>
       <List>
         {cities.reverse().map((city) => {
           return (
-            <ListItem key={city.name}>
+            <ListItem
+              button
+              onClick={() => {
+                props.displayCityDetails(city.name);
+              }}
+              key={city.name}
+            >
               <ListItemText
                 key={city.name}
                 primary={city.name}

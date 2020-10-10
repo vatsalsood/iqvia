@@ -3,46 +3,19 @@
 // Prevent adding special characters in search field
 // Clear search field after adding city
 
-import React, { useEffect, useState, useReducer } from "react";
+import React, { useReducer } from "react";
 import ReactDOM from "react-dom";
 import * as serviceWorker from "./serviceWorker";
-import Grid from "@material-ui/core/Grid";
-import Paper from "@material-ui/core/Paper";
 import citiesReducer from "./reducers/cities";
-import { makeStyles } from "@material-ui/core/styles";
-import CityAdd from "./components/CityAdd";
-import CityList from "./components/CityList";
+import CitiesForecast from "./components/CitiesForecast";
 import CitiesContext from "./context/cities-context";
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-  paper: {
-    textAlign: "center",
-  },
-  control: {
-    padding: theme.spacing(2),
-  },
-}));
-
 const App = () => {
-  const classes = useStyles();
   const [cities, dispatch] = useReducer(citiesReducer, []);
 
   return (
     <CitiesContext.Provider value={{ cities, dispatch }}>
-      <Grid container className={classes.root} spacing={2}>
-        <Grid item xs={4} justify="center">
-          <Paper className={classes.paper}>
-            <CityAdd></CityAdd>
-            <CityList></CityList>
-          </Paper>
-        </Grid>
-        <Grid item xs={8}>
-          <Paper className={classes.paper}> this is an app</Paper>
-        </Grid>
-      </Grid>
+      <CitiesForecast></CitiesForecast>
     </CitiesContext.Provider>
   );
 };
