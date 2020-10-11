@@ -1,10 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
-import { mdiCloud } from "@mdi/js";
-import { mdiWeatherRainy } from "@mdi/js";
-import { mdiWeatherSunny } from "@mdi/js";
-import Icon from "@mdi/react";
 import { getCityForecast } from "../processapi";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -12,6 +8,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import Typography from "@material-ui/core/Typography";
 import RefreshIcon from "@material-ui/icons/Refresh";
 import IconButton from "@material-ui/core/IconButton";
+import WeatherIcon from "./WeatherIcon";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -52,18 +49,11 @@ const CityDetails = (props) => {
       "Saturday",
     ];
 
-    let icons = {
-      Clouds: mdiCloud,
-      Rain: mdiWeatherRainy,
-      Clear: mdiWeatherSunny,
-    };
-
     list.forEach((element) => {
       let dt = element.dt;
-      let iconData = element.weather[0].main;
       element.dt = new Date(dt * 1000).getDate();
       element.day = days[new Date(dt * 1000).getDay()].substring(0, 3);
-      element.icon = icons[iconData];
+      element.icon = element.weather[0].main;
     });
     return list;
   };
@@ -99,7 +89,7 @@ const CityDetails = (props) => {
         <Grid container>
           <Grid item xs={4}>
             {weatherList.length > 0 ? (
-              <Icon path={weatherList[0].icon} title="Clouds" size={3} />
+              <WeatherIcon weather={weatherList[0].icon} size={3}></WeatherIcon>
             ) : (
               ""
             )}
@@ -145,7 +135,7 @@ const CityDetails = (props) => {
                   secondary={
                     <React.Fragment>
                       <Typography align="center" variant="h6" gutterBottom>
-                        <Icon path={item.icon} size={1} />
+                        <WeatherIcon weather={item.icon} size={1}></WeatherIcon>{" "}
                       </Typography>
                       <Typography align="center" variant="h6" gutterBottom>
                         {Math.round(item.temp.day)}

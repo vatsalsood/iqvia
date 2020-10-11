@@ -21,19 +21,31 @@ const CityAdd = () => {
   const [cityCounter, setCityCounter] = useState(0);
   const classes = useStyles();
 
-  const { dispatch } = useContext(CitiesContext);
+  const { cities, dispatch } = useContext(CitiesContext);
+
+  // Do not add city if duplicate
+  const checkDuplicates = (cityName) => {
+    let isDuplicate = false;
+    cities.forEach((city) => {
+      if (city.name.toLowerCase() === cityName.toLowerCase()) {
+        isDuplicate = true;
+      }
+    });
+    isDuplicate ? setCityNotFound(true) : addCity();
+    setCityName("");
+  };
 
   // Function to hit the api end point or give an error if not valid city
   async function addCity() {
     let isValidCity = await checkCity(cityName);
     isValidCity.id = cityCounter;
     setCityCounter(cityCounter + 1);
+
     if (isValidCity.cod == 404) {
       setCityNotFound(true);
     } else {
       dispatch({ type: "ADD_CITY", isValidCity });
     }
-    setCityName("");
   }
 
   const handleClose = (event, reason) => {
@@ -57,6 +69,7 @@ const CityAdd = () => {
           value={cityName}
           onChange={(e) => {
             e.target.value === "" ? setIsEmpty(true) : setIsEmpty(false);
+
             setCityName(e.target.value);
           }}
         />
@@ -66,7 +79,7 @@ const CityAdd = () => {
           disabled={isEmpty}
           size="medium"
           onClick={() => {
-            addCity();
+            checkDuplicates(cityName);
           }}
           color="primary"
         >

@@ -10,11 +10,7 @@ import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
 import Button from "@material-ui/core/Button";
-import { mdiCloud } from "@mdi/js";
-import { mdiWeatherRainy } from "@mdi/js";
-import { mdiWeatherSunny } from "@mdi/js";
-import { mdiWeatherHazy } from "@mdi/js";
-import Icon from "@mdi/react";
+import WeatherIcon from "./WeatherIcon";
 
 import { checkCity } from "../processapi";
 
@@ -52,18 +48,10 @@ const CityList = (props) => {
 
   useEffect(() => {
     setReversedCities(cities.sort(compare));
-    console.log("citites ", cities);
     let cityLength = cities.length;
     cityLength !== 0 ? setListEmpty(false) : setListEmpty(true);
     dispatch({ type: "UPDATE_CITY_LIST", cities });
   }, [cities]);
-
-  let icons = {
-    Clouds: mdiCloud,
-    Rain: mdiWeatherRainy,
-    Clear: mdiWeatherSunny,
-    Haze: mdiWeatherHazy,
-  };
 
   return (
     <div>
@@ -105,11 +93,7 @@ const CityList = (props) => {
                     >
                       {city.description}
                     </Typography>
-                    <Icon
-                      path={icons[city.weather]}
-                      style={{ marginLeft: "5px" }}
-                      size={1}
-                    />
+                    <WeatherIcon weather={city.weather} size={1}></WeatherIcon>
                   </React.Fragment>
                 }
               />

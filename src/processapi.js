@@ -1,5 +1,6 @@
 const proxyUrl = "https://cors-anywhere.herokuapp.com/";
 const appId = "c51223c219d6aec8cb8c5210449bd859";
+
 export async function checkCity(cityName) {
   const apiUrl =
     "api.openweathermap.org/data/2.5/weather?q=" +
@@ -16,7 +17,6 @@ export async function checkCity(cityName) {
     city.temperature = data.main.temp;
     city.description = data.weather[0].description;
     city.weather = data.weather[0].main;
-    console.log("processApicity", data);
   } catch (error) {
     city.name = "error";
     // console.log("error", error);
