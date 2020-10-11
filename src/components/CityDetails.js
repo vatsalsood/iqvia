@@ -26,6 +26,16 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "row",
     padding: 0,
   },
+  heading: {
+    display: "block",
+    fontSize: "15px",
+    marginTop: "10px",
+    marginBottom: "10px",
+    marginLeft: "0",
+    marginRight: "0",
+    fontWeight: "bold",
+  },
+  headerDiv: { marginLeft: "30px", marginTop: "20px" },
 }));
 
 const CityDetails = (props) => {
@@ -67,15 +77,21 @@ const CityDetails = (props) => {
     <Grid container className={classes.root} spacing={2}>
       <Grid item xs={12}>
         <Grid container>
-          <Grid item xs={8}>
-            <Typography align="left" variant="h4" gutterBottom gutterLeft>
+          <Grid item xs={10}>
+            <Typography
+              align="left"
+              variant="h4"
+              gutterBottom
+              className={classes.headerDiv}
+            >
               {props.cityName !== "" ? props.cityName : "Please choose a city"}
             </Typography>
           </Grid>
-          <Grid item xs={4} alignItems="right">
+          <Grid item xs={2}>
             <IconButton
               edge="end"
               aria-label="refresh"
+              style={{ marginTop: "20px" }}
               onClick={() => {
                 getWeatherData();
               }}
@@ -96,17 +112,41 @@ const CityDetails = (props) => {
           </Grid>
           <Grid item xs={8}>
             {weatherList.length > 0 ? (
-              <Typography variant="div">
-                <Typography align="left" variant="h6" gutterBottom>
+              <Typography>
+                <Typography
+                  variant="body1"
+                  component="span"
+                  align="left"
+                  className={classes.heading}
+                  gutterBottom
+                >
                   {Math.round(weatherList[0].temp.day)}
                 </Typography>
-                <Typography align="left" variant="h6" gutterBottom>
+                <Typography
+                  align="left"
+                  variant="body1"
+                  component="span"
+                  className={classes.heading}
+                  gutterBottom
+                >
                   {weatherList[0].weather[0].description}
                 </Typography>
-                <Typography align="left" variant="h6" gutterBottom>
+                <Typography
+                  align="left"
+                  variant="body1"
+                  component="span"
+                  className={classes.heading}
+                  gutterBottom
+                >
                   Wind: {weatherList[0].speed}
                 </Typography>
-                <Typography align="left" variant="h6" gutterBottom>
+                <Typography
+                  align="left"
+                  variant="body1"
+                  component="span"
+                  className={classes.heading}
+                  gutterBottom
+                >
                   Pressure: {weatherList[0].pressure}
                 </Typography>
               </Typography>
@@ -120,24 +160,52 @@ const CityDetails = (props) => {
         <List className={classes.flexContainer}>
           {weatherList.map((item) => {
             return (
-              <ListItem alignItems="center">
+              <ListItem key={item.dt} alignItems="center">
                 <ListItemText
                   primary={
                     <React.Fragment>
-                      <Typography align="center" variant="h6" gutterBottom>
+                      <Typography
+                        align="center"
+                        variant="body1"
+                        component="span"
+                        className={classes.heading}
+                        gutterBottom
+                      >
                         {item.dt}
                       </Typography>
-                      <Typography align="center" variant="h6" gutterBottom>
+                      <Typography
+                        align="center"
+                        variant="body1"
+                        component="span"
+                        className={classes.heading}
+                        gutterBottom
+                      >
                         {item.day}
                       </Typography>
                     </React.Fragment>
                   }
                   secondary={
                     <React.Fragment>
-                      <Typography align="center" variant="h6" gutterBottom>
-                        <WeatherIcon weather={item.icon} size={1}></WeatherIcon>{" "}
+                      <Typography
+                        align="center"
+                        variant="body1"
+                        component="span"
+                        className={classes.heading}
+                        gutterBottom
+                      >
+                        <WeatherIcon
+                          weather={item.icon}
+                          size={1}
+                          style={{ marginLeft: "5px" }}
+                        ></WeatherIcon>{" "}
                       </Typography>
-                      <Typography align="center" variant="h6" gutterBottom>
+                      <Typography
+                        align="center"
+                        variant="body1"
+                        component="span"
+                        className={classes.heading}
+                        gutterBottom
+                      >
                         {Math.round(item.temp.day)}
                       </Typography>
                     </React.Fragment>

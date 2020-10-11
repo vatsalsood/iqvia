@@ -39,7 +39,6 @@ export async function getCityForecast(cityName) {
     // city.name = "error";
     console.log("error", error);
   }
-  console.log("data", data);
 
   return data;
 }

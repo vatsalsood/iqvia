@@ -1,5 +1,3 @@
-let cities = [];
-
 const citiesReducer = (state, action) => {
   switch (action.type) {
     case "ADD_CITY":

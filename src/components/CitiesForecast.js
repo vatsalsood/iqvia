@@ -28,7 +28,7 @@ const CitiesForecast = () => {
 
   return (
     <Grid container className={classes.root} spacing={2}>
-      <Grid item xs={4} justify="center">
+      <Grid item xs={4}>
         <Paper className={classes.paper}>
           <CityAdd></CityAdd>
           <CityList displayCityDetails={displayCityDetails}></CityList>

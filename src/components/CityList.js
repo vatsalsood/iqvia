@@ -120,7 +120,7 @@ const CityList = (props) => {
             </ListItem>
           );
         })}
-        <ListItem alignItems="right">
+        <ListItem>
           <Button
             variant="contained"
             disabled={listEmpty}

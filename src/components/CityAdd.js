@@ -41,7 +41,7 @@ const CityAdd = () => {
     isValidCity.id = cityCounter;
     setCityCounter(cityCounter + 1);
 
-    if (isValidCity.cod == 404) {
+    if (isValidCity.cod === 404) {
       setCityNotFound(true);
     } else {
       dispatch({ type: "ADD_CITY", isValidCity });
@@ -69,8 +69,8 @@ const CityAdd = () => {
           value={cityName}
           onChange={(e) => {
             e.target.value === "" ? setIsEmpty(true) : setIsEmpty(false);
-
-            setCityName(e.target.value);
+            // Make sure no special characters are allowed
+            setCityName(e.target.value.replace(/[^a-zA-Z ]/g, ""));
           }}
         />
         <IconButton
