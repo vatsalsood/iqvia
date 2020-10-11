@@ -15,11 +15,12 @@ export async function checkCity(cityName) {
     city.cod = data.cod;
     city.temperature = data.main.temp;
     city.description = data.weather[0].description;
+    city.weather = data.weather[0].main;
+    console.log("processApicity", data);
   } catch (error) {
     city.name = "error";
     // console.log("error", error);
   }
-  console.log("processApicity", city);
   return city;
 }
 

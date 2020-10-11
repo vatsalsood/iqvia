@@ -1,7 +1,5 @@
-import React, { useEffect, useState, useContext } from "react";
-import Paper from "@material-ui/core/Paper";
+import React, { useState, useContext } from "react";
 import TextField from "@material-ui/core/TextField";
-import AddIcon from "@material-ui/icons/Add";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 import CitiesContext from "../context/cities-context";
 import Snackbar from "@material-ui/core/Snackbar";
@@ -12,7 +10,7 @@ import IconButton from "@material-ui/core/IconButton";
 
 const useStyles = makeStyles((theme) => ({
   textField: {
-    width: "70%",
+    width: "85%",
   },
 }));
 
@@ -25,16 +23,17 @@ const CityAdd = () => {
 
   const { dispatch } = useContext(CitiesContext);
 
+  // Function to hit the api end point or give an error if not valid city
   async function addCity() {
     let isValidCity = await checkCity(cityName);
     isValidCity.id = cityCounter;
-    // let updatedCounter = cityCounter++;
     setCityCounter(cityCounter + 1);
     if (isValidCity.cod == 404) {
       setCityNotFound(true);
     } else {
       dispatch({ type: "ADD_CITY", isValidCity });
     }
+    setCityName("");
   }
 
   const handleClose = (event, reason) => {
@@ -55,6 +54,7 @@ const CityAdd = () => {
           id="standard-basic"
           label="Enter City"
           className={classes.textField}
+          value={cityName}
           onChange={(e) => {
             e.target.value === "" ? setIsEmpty(true) : setIsEmpty(false);
             setCityName(e.target.value);

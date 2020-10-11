@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useReducer, useContext } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import CitiesContext from "../context/cities-context";
 import { makeStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
@@ -6,11 +6,15 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import Typography from "@material-ui/core/Typography";
 import RefreshIcon from "@material-ui/icons/Refresh";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
 import Button from "@material-ui/core/Button";
+import { mdiCloud } from "@mdi/js";
+import { mdiWeatherRainy } from "@mdi/js";
+import { mdiWeatherSunny } from "@mdi/js";
+import { mdiWeatherHazy } from "@mdi/js";
+import Icon from "@mdi/react";
 
 import { checkCity } from "../processapi";
 
@@ -46,15 +50,20 @@ const CityList = (props) => {
     return 0;
   };
 
-  const sortCities = () => {};
-
   useEffect(() => {
     setReversedCities(cities.sort(compare));
-
+    console.log("citites ", cities);
     let cityLength = cities.length;
     cityLength !== 0 ? setListEmpty(false) : setListEmpty(true);
     dispatch({ type: "UPDATE_CITY_LIST", cities });
   }, [cities]);
+
+  let icons = {
+    Clouds: mdiCloud,
+    Rain: mdiWeatherRainy,
+    Clear: mdiWeatherSunny,
+    Haze: mdiWeatherHazy,
+  };
 
   return (
     <div>
@@ -70,18 +79,37 @@ const CityList = (props) => {
             >
               <ListItemText
                 key={city.name}
-                primary={city.name}
-                secondary={
+                primary={
                   <React.Fragment>
                     <Typography
                       component="span"
                       variant="body2"
                       className={classes.inline}
+                      style={{ fontSize: "20px", fontWeight: "bold" }}
                       color="textPrimary"
                     >
-                      {city.temperature} degrees
+                      {city.name}
                     </Typography>
-                    -- {city.description}
+                    <Typography
+                      component="span"
+                      style={{ marginLeft: "15px" }}
+                      variant="body2"
+                    >
+                      {city.temperature}C
+                    </Typography>
+                    <Typography
+                      component="span"
+                      variant="body2"
+                      style={{ marginLeft: "5px" }}
+                      className={classes.inline}
+                    >
+                      {city.description}
+                    </Typography>
+                    <Icon
+                      path={icons[city.weather]}
+                      style={{ marginLeft: "5px" }}
+                      size={1}
+                    />
                   </React.Fragment>
                 }
               />

@@ -10,6 +10,7 @@ const citiesReducer = (state, action) => {
           name: action.isValidCity.name,
           temperature: action.isValidCity.temperature,
           description: action.isValidCity.description,
+          weather: action.isValidCity.weather,
         },
       ];
     case "UPDATE_CITY":

@@ -70,8 +70,6 @@ const CityDetails = (props) => {
 
   async function getWeatherData() {
     let weatherData = await getCityForecast(props.cityName);
-    // console.log("weatherData", weatherData);
-
     setWeatherList(formatTemp(weatherData.list));
   }
 
