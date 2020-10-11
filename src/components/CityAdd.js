@@ -20,12 +20,16 @@ const CityAdd = () => {
   const [cityName, setCityName] = useState("");
   const [cityNotFound, setCityNotFound] = useState(false);
   const [isEmpty, setIsEmpty] = useState(true);
+  const [cityCounter, setCityCounter] = useState(0);
   const classes = useStyles();
 
   const { dispatch } = useContext(CitiesContext);
 
   async function addCity() {
     let isValidCity = await checkCity(cityName);
+    isValidCity.id = cityCounter;
+    // let updatedCounter = cityCounter++;
+    setCityCounter(cityCounter + 1);
     if (isValidCity.cod == 404) {
       setCityNotFound(true);
     } else {

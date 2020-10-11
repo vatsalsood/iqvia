@@ -28,6 +28,7 @@ const useStyles = makeStyles((theme) => ({
 const CityList = (props) => {
   const { cities, dispatch } = useContext(CitiesContext);
   const [listEmpty, setListEmpty] = useState(true);
+  const [reveresedCities, setReversedCities] = useState([]);
   const classes = useStyles();
 
   async function refreshWeather(cityName) {
@@ -35,14 +36,30 @@ const CityList = (props) => {
     dispatch({ type: "UPDATE_CITY", isValidCity });
   }
 
-  //   useEffect(() => {
-  //     console.log("cities", cities);
-  //   });
+  const compare = (a, b) => {
+    if (a.id > b.id) {
+      return -1;
+    }
+    if (a.id < b.id) {
+      return 1;
+    }
+    return 0;
+  };
+
+  const sortCities = () => {};
+
+  useEffect(() => {
+    setReversedCities(cities.sort(compare));
+
+    let cityLength = cities.length;
+    cityLength !== 0 ? setListEmpty(false) : setListEmpty(true);
+    dispatch({ type: "UPDATE_CITY_LIST", cities });
+  }, [cities]);
 
   return (
     <div>
       <List>
-        {cities.reverse().map((city) => {
+        {reveresedCities.map((city) => {
           return (
             <ListItem
               button

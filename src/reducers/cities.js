@@ -6,6 +6,7 @@ const citiesReducer = (state, action) => {
       return [
         ...state,
         {
+          id: action.isValidCity.id,
           name: action.isValidCity.name,
           temperature: action.isValidCity.temperature,
           description: action.isValidCity.description,
@@ -22,6 +23,12 @@ const citiesReducer = (state, action) => {
       return newState;
     case "REMOVE_CITY":
       return state.filter((s) => s.name !== action.name);
+    case "UPDATE_CITY_LIST":
+      if (state.length > 8) {
+        return state.slice(0, 8);
+      } else {
+        return state;
+      }
     case "CLEAR_CITIES":
       return [];
     default:
