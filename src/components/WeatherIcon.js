@@ -6,6 +6,11 @@ import { mdiWeatherSunny } from "@mdi/js";
 import { mdiWeatherHazy } from "@mdi/js";
 import Icon from "@mdi/react";
 
+/**
+ * This component returns a weather icon deoending on the name of the icon and size
+ * @param iconname
+ * @param size 
+ */
 const WeatherIcon = (props) => {
   let icons = {
     Clouds: mdiCloud,
