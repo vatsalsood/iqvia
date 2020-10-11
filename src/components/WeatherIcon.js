@@ -1,5 +1,5 @@
+// Absolute Imports
 import React from "react";
-
 import { mdiCloud } from "@mdi/js";
 import { mdiWeatherRainy } from "@mdi/js";
 import { mdiWeatherSunny } from "@mdi/js";

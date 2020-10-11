@@ -1,14 +1,23 @@
+// Absolute Imports
 import React, { useEffect, useState } from "react";
-import Grid from "@material-ui/core/Grid";
-import { makeStyles } from "@material-ui/core/styles";
-import { getCityForecast } from "../processapi";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import Typography from "@material-ui/core/Typography";
 import RefreshIcon from "@material-ui/icons/Refresh";
 import IconButton from "@material-ui/core/IconButton";
+import Grid from "@material-ui/core/Grid";
+import { makeStyles } from "@material-ui/core/styles";
+
+// Relative Imports
+import { getCityForecast } from "../processapi";
 import WeatherIcon from "./WeatherIcon";
+
+/**
+ * This compoment renders the right panel of the app
+ * Includes some date formatting functions to display days and dates
+ * @param cityName
+ */
 
 const useStyles = makeStyles((theme) => ({
   root: {

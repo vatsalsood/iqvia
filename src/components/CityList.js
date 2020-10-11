@@ -1,5 +1,5 @@
+// Absolute Imports
 import React, { useEffect, useState, useContext } from "react";
-import CitiesContext from "../context/cities-context";
 import { makeStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -10,9 +10,18 @@ import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
 import Button from "@material-ui/core/Button";
+// Relative Imports
+import CitiesContext from "../context/cities-context";
 import WeatherIcon from "./WeatherIcon";
 
 import { checkCity } from "../processapi";
+
+/**
+ * This component displays the list of cities
+ * This component sorts the cities so the new cities are added to the top of the list instead of bottom
+ * Also added the refresh and clear cities functionalities
+ * @param displayCityDetails
+ */
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -36,6 +45,7 @@ const CityList = (props) => {
     dispatch({ type: "UPDATE_CITY", isValidCity });
   }
 
+  // Sorting function
   const compare = (a, b) => {
     if (a.id > b.id) {
       return -1;

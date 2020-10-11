@@ -1,6 +1,7 @@
 const proxyUrl = "https://cors-anywhere.herokuapp.com/";
 const appId = "c51223c219d6aec8cb8c5210449bd859";
 
+// Gets the weather details for the left panel
 export async function checkCity(cityName) {
   const apiUrl =
     "api.openweathermap.org/data/2.5/weather?q=" +
@@ -24,6 +25,7 @@ export async function checkCity(cityName) {
   return city;
 }
 
+// Gets the weather data for a week for the right panel
 export async function getCityForecast(cityName) {
   const apiUrl =
     "api.openweathermap.org/data/2.5/forecast/daily?q=" +

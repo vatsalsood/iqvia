@@ -1,10 +1,17 @@
+// Absolute Imports
 import React, { useState } from "react";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import { makeStyles } from "@material-ui/core/styles";
+// Relative Imports
 import CityAdd from "./CityAdd";
 import CityList from "./CityList";
 import CityDetails from "./CityDetails";
+
+/**
+ * This compoment renders the left and the right panels of the app via the CityAdd, CityList and CityDetails components
+ * @param none
+ */
 
 const useStyles = makeStyles((theme) => ({
   root: {

@@ -1,14 +1,17 @@
-// Check for duplicates in city list
-// Disable add button when field empty
-// Prevent adding special characters in search field
-// Clear search field after adding city
-
+// Absolute Imports
 import React, { useReducer } from "react";
 import ReactDOM from "react-dom";
+// Relative Imports
 import * as serviceWorker from "./serviceWorker";
 import citiesReducer from "./reducers/cities";
 import CitiesForecast from "./components/CitiesForecast";
 import CitiesContext from "./context/cities-context";
+
+/**
+ * This is the main component of the application. This renders the CitiesForecast component that renders the list of cities and the detail of a city when clicked
+ * Context is also implemented in this component to be used by child components
+ * @param none
+ */
 
 const App = () => {
   const [cities, dispatch] = useReducer(citiesReducer, []);

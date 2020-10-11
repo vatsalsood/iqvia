@@ -1,12 +1,22 @@
+// Absolute Imports
 import React, { useState, useContext } from "react";
-import TextField from "@material-ui/core/TextField";
-import AddCircleIcon from "@material-ui/icons/AddCircle";
-import CitiesContext from "../context/cities-context";
-import Snackbar from "@material-ui/core/Snackbar";
-import MuiAlert from "@material-ui/lab/Alert";
-import { checkCity } from "../processapi";
 import { makeStyles } from "@material-ui/core/styles";
 import IconButton from "@material-ui/core/IconButton";
+import TextField from "@material-ui/core/TextField";
+import AddCircleIcon from "@material-ui/icons/AddCircle";
+import Snackbar from "@material-ui/core/Snackbar";
+import MuiAlert from "@material-ui/lab/Alert";
+// Relative Imports
+import CitiesContext from "../context/cities-context";
+import { checkCity } from "../processapi";
+
+/**
+ * This component adds the cities to the list of cities.
+ * checkDuplicates function checks for duplicates and makes sure no duplicates are added.
+ * This component also renders a snackbar for error if an invalid city name is entered in the text field.
+ * Also added the functionality to not allow users to add special characters for city names
+ * @param none
+ */
 
 const useStyles = makeStyles((theme) => ({
   textField: {
